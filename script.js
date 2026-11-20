@@ -1,8 +1,9 @@
-// let input = prompt("Enter equation in the form f(x)=0")
+
 let inpArr = [], input, xinput, res;
 let indexarr; // Stores index of =,-,+
 let computedarr = [];// Stores the computed value of each term
 let finalexpression = ""; // Stores the final expression to be fed to the calculator
+
 function findIndex(input) { // Finds index of +,-,=
 
 	for (let i = 0; i < input.length; i++) {
@@ -15,14 +16,13 @@ function termExtractor() { // Extracts terms from equation
 	for (let i = 0; i < indexarr.length - 1; i++) {
 		if ((input.charAt(indexarr[i]) == '-' && indexarr[i] == 0) || i==0) {// Prevents the stripping off of first - or first character of the equation
 			compute(input.slice((indexarr[i]), indexarr[i + 1]), xinput)
-			console.log(input.slice((indexarr[i]), indexarr[i + 1]) + ".......1")
 		}
 		else {//Prevents + or - to be included in the terms
 			compute(input.slice(indexarr[i] + 1, indexarr[i + 1]), xinput)
-			console.log(input.slice(indexarr[i] + 1, indexarr[i + 1]) + ".........2")
 		}
 	}
 }
+
 function compute(str, x) // computes the value of each term
 {
 
@@ -45,12 +45,11 @@ function compute(str, x) // computes the value of each term
 			coeff = 1;
 		if (coeff == '-') // Handles if first term is -x
 			coeff = -1
-		console.log(coeff, power)
 		computed = parseFloat(coeff) * Math.pow(x, parseFloat(power))
 		computedarr.push(computed)
 	}
-	console.log(computedarr)
 }
+
 function expressionFormer() {
 	indexarr.shift()
 	for (let i = 0; i < indexarr.length; i++)
@@ -59,7 +58,6 @@ function expressionFormer() {
 	finalexpression = finalexpression.replaceAll("+-", "-")
 	finalexpression = finalexpression.replaceAll("--", "+")
 	finalexpression = finalexpression.replaceAll("-+", "-")
-	console.log(finalexpression)
 }
 
 function createArray() {
@@ -80,7 +78,6 @@ function createArray() {
 	}
 	if (inpArr[0] == '-')
 		inpArr.unshift(0)
-	console.log(inpArr)
 }
 
 function calculate(operand, num1, num2) {
@@ -94,12 +91,9 @@ function calculate(operand, num1, num2) {
 		return num1 - num2;
 }
 
-
 function update(result, index) {
 	inpArr.splice(index - 1, 3, result)
-	console.log(inpArr)
 }
-
 
 function func(sign1, sign2) {
 	let i = 1;
@@ -113,6 +107,7 @@ function func(sign1, sign2) {
 		i++;
 	}
 }
+
 function finalResult() {
 	func('+', '-')
 	document.querySelector("#result").innerText = `Function value: ${inpArr[0]}`
@@ -121,12 +116,12 @@ function finalResult() {
 
 document.getElementById('funcval').addEventListener('click', () => {
 	input = document.querySelector("#equation").value;
+	input+="=0"
 	xinput = document.querySelector("#x").value;
 	if (input == '' || xinput == '') {
 		alert('Enter valid values')
 		return
 	}
-
 	xinput = parseFloat(xinput)
 	if (input[0] == '-')// checks if first character is minus, if not checked 0 would be appended 2 times
 		indexarr = [];
